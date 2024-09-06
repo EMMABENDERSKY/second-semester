@@ -1,11 +1,6 @@
 #include <iostream>
 #include <time.h>
 
-// Three rules for the C++ class:
-// 1. No global variables. (Global constants are all right.)
-// 2. No strings. Not ever. (You can use cstrings/character arrays, and the cstring and cctype libraries are okay. In fact, I recommend using strcmp and strlen in your projects.)
-// 3. You should include <iostream>, not stdio. (This applies more to C programmers.) Also, use "new" and "delete" instead of "malloc" and "free".
-
 using namespace std;
 
 int main()
@@ -17,6 +12,7 @@ int main()
 		int numberOfGuesses = 0; // variable to keep track of the number of guesses
 		srand(time(NULL)); // set the random number
 		int randomNumber = rand() % 101; // generate random number between 0 and 100
+		cout << randomNumber << endl;
 		int playerGuess = -1; // initialize player's guess with an invalid number
 		cout << "Guess a number between 0 and 100!" << endl;
 
