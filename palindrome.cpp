@@ -1,20 +1,58 @@
 #include <iostream>
 #include <cstring>
+#include <cctype>
 
 using namespace std;
 
 int main()
 {
-  char str1[80];
-  cin.get(str1, 80); 
-  char str2[80];
-  for (int i = 0; i < 80; i++)
+  const int maxLength = 80;
+  char str[maxLength + 1]; //+1 for null terminator
+  
+  cout << "Enter a string (up to 80 characters): " << endl;
+  cin.get(str, maxLength + 1); 
+  
+  char cleaned[maxLength + 1];
+  int cleanedIndex = 0;
+  
+  char reversed[maxLength + 1];
+  
+  //Remove all spaces and punctuation, and covert letters to lowercase
+  for (int i = 0; str[i] != '\0'; i++)
   {
-    if(str[i] != '\0')
+    if(isalnum(str[i]))
       {
-	str2[count]=str1[i];
-	count++;
+    if(isupper(str[i]))
+      {
+        tolower(str[i]);
       }
-     
+    cleaned[cleanedIndex] = str[i];
+    cleanedIndex++;
+      } 
   }
+  
+  cleaned[cleanedIndex + 1] = '/0'; //NULL- terminate the cleaned string; 
+  
+  //Create a reversed version of the cleaned string
+  int length = strlen(cleaned);
+
+  for(int i = 0; i < length; i++)
+    {
+      reversed[i] = cleaned[length - i - 1];
+    }
+    
+    reversed[length + 1] = '/0'; //NULL- terminate the reversed string
+  
+  //Compare the cleaned string with its reversed version
+  if(strcmp(cleaned, reversed) == 0)
+    {
+      cout << "Palindrome" << endl;
+    }
+
+  else
+    {
+      cout << "Not a palindrome" << endl;
+    }
+
+  return 0; 
 }
