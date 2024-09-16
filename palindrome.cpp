@@ -10,7 +10,7 @@ int main()
   char str[maxLength + 1]; //+1 for null terminator
   
   cout << "Enter a string (up to 80 characters): " << endl;
-  cin.get(str, maxLength + 1); 
+  cin.get(str, maxLength + 1);
   
   char cleaned[maxLength + 1];
   int cleanedIndex = 0;
@@ -22,26 +22,24 @@ int main()
   {
     if(isalnum(str[i]))
       {
-    if(isupper(str[i]))
-      {
-        tolower(str[i]);
+	if(isupper(str[i]))
+	  {
+	    tolower(str[i]);
+	  }
+	cleaned[cleanedIndex] = str[i];
+	cleanedIndex++;
       }
-    cleaned[cleanedIndex] = str[i];
-    cleanedIndex++;
-      } 
   }
   
-  cleaned[cleanedIndex + 1] = '/0'; //NULL- terminate the cleaned string; 
+  cleaned[cleanedIndex] = '\0'; 
   
   //Create a reversed version of the cleaned string
   int length = strlen(cleaned);
-
+  
   for(int i = 0; i < length; i++)
     {
       reversed[i] = cleaned[length - i - 1];
     }
-    
-    reversed[length + 1] = '/0'; //NULL- terminate the reversed string
   
   //Compare the cleaned string with its reversed version
   if(strcmp(cleaned, reversed) == 0)
