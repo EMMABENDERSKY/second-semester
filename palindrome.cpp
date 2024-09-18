@@ -6,29 +6,42 @@ using namespace std;
 
 int main()
 {
-  char str[80];
-  cin.get(str, 80); 
-  char cleaned[80];
+  const int maxLength = 80;
+  char str[maxLength + 1]; //+1 for null terminator
+  
+  cout << "Enter a string (up to 80 characters): " << endl;
+  cin.get(str, maxLength + 1); 
+  
+  char cleaned[maxLength + 1];
   int cleanedIndex = 0;
-  char reversed[80];
+  
+  char reversed[maxLength + 1];
+  
+  //Remove all spaces and punctuation, and covert letters to lowercase
   for (int i = 0; str[i] != '\0'; i++)
   {
     if(isalnum(str[i]))
       {
-	if(isupper(str[i]))
-	  {
-	    tolower(str[i]);
-	  }
-	cleaned[cleanedIndex] = str[i];
-	cleanedIndex++;
+    if(isupper(str[i]))
+      {
+        tolower(str[i]);
+      }
+    cleaned[cleanedIndex] = str[i];
+    cleanedIndex++;
       } 
   }
+  
+   cleaned[cleanedIndex] = '\0';
+  
+  //Create a reversed version of the cleaned string
+  int length = strlen(cleaned);
 
-  for(int i = 0; i < strlen(cleaned); i--)
+  for(int i = 0; i < length; i++)
     {
-      reversed[i] = cleaned[strlen(cleaned) - i];
+      reversed[i] = cleaned[length - i - 1];
     }
-
+  
+  //Compare the cleaned string with its reversed version
   if(strcmp(cleaned, reversed) == 0)
     {
       cout << "Palindrome" << endl;
