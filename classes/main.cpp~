@@ -1,0 +1,16 @@
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include "media.h"
+#include "movie.h"
+#include "music.h"
+#include "videogame.h"
+
+using namespace std;
+
+int main()
+{
+
+
+  return 0;
+}

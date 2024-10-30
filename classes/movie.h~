@@ -1,0 +1,22 @@
+#include <iostream>
+#include <cstring>
+#ifndef MOVIE_H
+#define MOVIE_H
+#include "media.h"
+
+using namespace std;
+
+class movie : public media
+{
+ private:
+  char* director;
+  double duration;
+  double rating;
+ public:
+  movie();
+  movie(char*, double, double);
+  char* getDirector();
+  double getDuration();
+  double getRating();
+};
+#endif
