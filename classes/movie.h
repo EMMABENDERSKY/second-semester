@@ -14,9 +14,11 @@ class movie : public media
   int rating;
  public:
   movie();
+  ~movie();
   movie(char*, int, int);
   char* getDirector();
   int getDuration();
   int getRating();
+  void printStuff();
 };
 #endif

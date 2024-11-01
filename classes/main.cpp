@@ -103,9 +103,8 @@ void searchMedia(vector<media*> & mediaList)
     {
       if((strcmp(title, (*it)->getTitle()) == 0) && (year = (*it)->getYear()))
 	{
-
+	  (*it)->printStuff();
 	}
-      cout << (*it)-> << ", " << (*it)-> << ", " << (*it)-> << endl;
     }
 }
   

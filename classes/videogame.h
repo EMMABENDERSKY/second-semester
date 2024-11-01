@@ -13,8 +13,10 @@ class videogame : public media
   int rating;
  public:
   videogame();
+  ~videogame();
   videogame(char*, int);
   char* getPublisher();
   int getRating();
+  void printStuff();
 };
 #endif

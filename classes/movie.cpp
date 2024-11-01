@@ -11,6 +11,12 @@ movie::movie()
   rating = 0;
 }
 
+movie::~movie()
+{
+  delete director;
+  cout << "Movie deleted!" << endl;
+}
+
 movie::movie(char* newDirector, int newDuration, int newRating)
 {
   director = new char[80];
@@ -32,4 +38,9 @@ int movie::getDuration()
 int movie::getRating()
 {
   return rating;
+}
+
+void movie::printStuff()
+{
+  cout << "Director: " << director << ", Duration: " << duration << ", Rating: " << rating << endl; 
 }

@@ -12,8 +12,10 @@ class media
   int year;
  public:
   media();
+  virtual ~media();
   media(char*, int);
   char* getTitle();
   int getYear();
+  virtual void printStuff();
 };
 #endif

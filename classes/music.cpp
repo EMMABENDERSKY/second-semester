@@ -11,6 +11,13 @@ music::music()
   publisher = new char[80];
 }
 
+music::~music()
+{
+  delete artist;
+  delete publisher;
+  cout << "Music deleted! " << endl;
+}
+
 music::music(char* newArtist, int newDuration, char* newPublisher)
 {
   artist = new char[80];
@@ -33,4 +40,9 @@ int music::getDuration()
 char* music::getPublisher()
 {
   return publisher;
+}
+
+void music::printStuff()
+{
+  cout << "Artist: " << artist << " Duration: " << duration << ", Publisher: " << publisher << endl;
 }

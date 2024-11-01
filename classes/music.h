@@ -14,9 +14,11 @@ class music : public media
   char* publisher;
  public:
   music();
+  ~music();
   music(char*, int, char*);
   char* getArtist();
   int getDuration();
   char* getPublisher();
+  void printStuff();
 };
 #endif

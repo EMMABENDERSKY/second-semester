@@ -10,6 +10,12 @@ videogame::videogame()
   rating = 0;
 }
 
+videogame::~videogame()
+{
+  delete publisher;
+  cout << "Videogame deleted!" << endl;
+}
+
 videogame::videogame(char* newPublisher, int newRating)
 {
   publisher = new char[80];
@@ -25,4 +31,9 @@ char* videogame::getPublisher()
 int videogame::getRating()
 {
   return rating;
+}
+
+void videogame::printStuff()
+{
+  cout << "Publisher: " << publisher << ", Rating: " << rating << endl;
 }
