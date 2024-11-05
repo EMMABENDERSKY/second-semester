@@ -18,8 +18,11 @@ music::~music()
   cout << "Music deleted! " << endl;
 }
 
-music::music(char* newArtist, int newDuration, char* newPublisher)
+music::music(char* newTitle, int newYear, char* newArtist, int newDuration, char* newPublisher)
 {
+  title = new char[80];
+  strcpy(title, newTitle);
+  year = newYear;
   artist = new char[80];
   strcpy(artist, newArtist);
   duration = newDuration;

@@ -15,7 +15,7 @@ class movie : public media
  public:
   movie();
   ~movie();
-  movie(char*, int, int);
+  movie(char*, int, char*, int, int);
   char* getDirector();
   int getDuration();
   int getRating();

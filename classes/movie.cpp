@@ -17,8 +17,11 @@ movie::~movie()
   cout << "Movie deleted!" << endl;
 }
 
-movie::movie(char* newDirector, int newDuration, int newRating)
+movie::movie(char* newTitle, int newYear, char* newDirector, int newDuration, int newRating)
 {
+  title = new char[80];
+  strcpy(title, newTitle);
+  year = newYear;
   director = new char[80];
   strcpy(director, newDirector);
   duration = newDuration;

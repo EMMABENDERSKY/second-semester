@@ -10,32 +10,34 @@ using namespace std;
 
 void addMedia(vector<media*> & mediaList);
 void searchMedia(vector<media*> & mediaList);
+void deleteMedia(vector<media*> & mediaList);
 
 int main()
 {
   vector<media*> mediaList;
+
   while(true)
     {
       char command[10];
       cout << "Enter a command (ADD, SEARCH, DELETE, QUIT): " << endl;
       cin.get(command, 10);
+      cin.get();
 
       if(strcmp(command, "ADD") == 0)
 	addMedia(mediaList);
       else if(strcmp(command, "SEARCH") == 0)
 	{
-
+	  searchMedia(mediaList);
 	}
        else if(strcmp(command, "DELETE") == 0)
 	 {
-
+	   deleteMedia(mediaList);
 	 }
        else if(strcmp(command, "QUIT") == 0)
 	 {
 	   exit(0);
 	   break;
 	 }
-	 
     }
   return 0;
 }
@@ -52,54 +54,66 @@ void addMedia(vector<media*> & mediaList)
 
   cout << "Enter title: " << endl;
   cin.get(title, 80);
+  cin.get();
   cout << "Enter year: " << endl;
   cin >> year;
+  cin.ignore();
   
   char type[10];
-  cout << "Enter media type (videoGame, music, movie): " << endl;
+  cout << "Enter media type (videoGame/music/movie): " << endl;
   cin.get(type, 10);
+  cin.get();
 
   if(strcmp(type, "videoGame") == 0)
     {
       cout << "Enter publisher: " << endl;
       cin.get(publisher, 80);
+      cin.get();
       cout << "Enter rating: " << endl;
       cin >> rating;
-      media* movie = new movie(title, year, publisher, rating);
-      mediaList.push_back(movie);
+      cin.ignore();
+      mediaList.push_back(new videogame(title, year, publisher, rating));
     }
   else if(strcmp(type, "music") == 0)
     {
       cout << "Enter artist: " << endl;
       cin.get(artist, 80);
+      cin.get();
       cout << "enter duration: " << endl;
       cin >> duration;
+      cin.ignore();
       cout << "Enter publisher: " << endl;
       cin.get(publisher, 80);
-      media* music = new music(title, year, artist, duration, publisher);
-      mediaList.push_back(music);
+      cin.get();
+      mediaList.push_back(new music (title, year, artist, duration, publisher));
     }
   else if(strcmp(type, "movie") == 0)
     {
       cout << "Enter director: " << endl;
       cin.get(director, 80);
+      cin.get();
       cout << "Enter duration: " << endl;
       cin >> duration;
+      cin.ignore();
       cout << "Enter rating: " << endl;
       cin >> rating;
-      media* movie = new movie(title, year, director, duration, rating);
-      mediaList.push_back(movie);
+      cin.ignore();
+      mediaList.push_back(new movie(title, year, director, duration, rating));
     }
 }
 
 void searchMedia(vector<media*> & mediaList)
 {
+  cout << "Enter title: " << endl;
   char* title = new char[80];
   cin.get(title, 80);
+  cin.get();
+  cout << "Enter year: " << endl;
   int year;
   cin >> year;
+  cin.ignore();
   
-  for(vector<media*>::iterator it = media.begin(); it != media.end(); it++)
+  for(vector<media*>::iterator it = mediaList.begin(); it != mediaList.end(); it++)
     {
       if((strcmp(title, (*it)->getTitle()) == 0) && (year = (*it)->getYear()))
 	{
@@ -108,3 +122,24 @@ void searchMedia(vector<media*> & mediaList)
     }
 }
   
+void deleteMedia(vector<media*> & mediaList)
+{
+  cout << "Enter title: " << endl;
+  char* title = new char[80];
+  cin.get(title, 80);
+  cin.get();
+  cout << "Enter year: " << endl;
+  int year;
+  cin >> year;
+  cin.ignore();
+  
+  for(vector<media*>::iterator it = mediaList.begin(); it != mediaList.end(); it++)
+    {
+      if((strcmp(title, (*it)->getTitle()) == 0) && (year = (*it)->getYear()))
+	{
+	  (*it)->~media();
+	}
+      mediaList.erase(it);
+      break;
+    }
+}

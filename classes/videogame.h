@@ -14,7 +14,7 @@ class videogame : public media
  public:
   videogame();
   ~videogame();
-  videogame(char*, int);
+  videogame(char*, int, char*, int);
   char* getPublisher();
   int getRating();
   void printStuff();

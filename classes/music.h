@@ -15,7 +15,7 @@ class music : public media
  public:
   music();
   ~music();
-  music(char*, int, char*);
+  music(char*, int, char*, int, char*);
   char* getArtist();
   int getDuration();
   char* getPublisher();

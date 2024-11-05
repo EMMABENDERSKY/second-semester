@@ -13,7 +13,6 @@ media::media()
 media::~media()
 {
   delete title;
-  cout << "Media deleted!" << endl;
 }
 
 media::media(char* newTitle, int newYear)

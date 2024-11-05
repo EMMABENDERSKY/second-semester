@@ -16,8 +16,11 @@ videogame::~videogame()
   cout << "Videogame deleted!" << endl;
 }
 
-videogame::videogame(char* newPublisher, int newRating)
+videogame::videogame(char* newTitle, int newYear, char* newPublisher, int newRating)
 {
+  title = new char[80];
+  strcpy(title, newTitle);
+  year = newYear;
   publisher = new char[80];
   strcpy(publisher, newPublisher);
   rating = newRating;
