@@ -1,0 +1,11 @@
+#include <iostream>
+#ifndef ROOM_H
+#define ROOM_H
+
+using namespace std;
+
+class room
+{
+
+};
+#endif
