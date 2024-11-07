@@ -8,13 +8,14 @@
 
 using namespace std;
 
+//function prototypes
 void addMedia(vector<media*> & mediaList);
 void searchMedia(vector<media*> & mediaList);
 void deleteMedia(vector<media*> & mediaList);
 
 int main()
 {
-  vector<media*> mediaList;
+  vector<media*> mediaList; //vector to store media items
 
   while(true)
     {
@@ -23,6 +24,7 @@ int main()
       cin.get(command, 10);
       cin.get();
 
+      //handle different commands
       if(strcmp(command, "ADD") == 0)
 	addMedia(mediaList);
       else if(strcmp(command, "SEARCH") == 0)
@@ -42,21 +44,23 @@ int main()
   return 0;
 }
 
+//function to add media item
 void addMedia(vector<media*> & mediaList)
 {
-  char* title = new char[80];
+  //variables for media attributes
+  char* title = new char[80 ];
   char* publisher = new char[80];
   char* artist = new char[80];
   char* director = new char[80];
   int year;
   int rating;
-  int duration;
+  int duration;           
 
   cout << "Enter title: " << endl;
-  cin.get(title, 80);
+  cin.get(title,   80);
   cin.get();
   cout << "Enter year: " << endl;
-  cin >> year;
+  cin >> year;   
   cin.ignore();
   
   char type[10];
@@ -64,6 +68,7 @@ void addMedia(vector<media*> & mediaList)
   cin.get(type, 10);
   cin.get();
 
+  //handle input based on media type
   if(strcmp(type, "videoGame") == 0)
     {
       cout << "Enter publisher: " << endl;
@@ -71,7 +76,7 @@ void addMedia(vector<media*> & mediaList)
       cin.get();
       cout << "Enter rating: " << endl;
       cin >> rating;
-      cin.ignore();
+      cin.ignore(); 
       mediaList.push_back(new videogame(title, year, publisher, rating));
     }
   else if(strcmp(type, "music") == 0)
@@ -102,6 +107,7 @@ void addMedia(vector<media*> & mediaList)
     }
 }
 
+//function to search for media item
 void searchMedia(vector<media*> & mediaList)
 {
   cout << "Enter title: " << endl;
@@ -112,7 +118,8 @@ void searchMedia(vector<media*> & mediaList)
   int year;
   cin >> year;
   cin.ignore();
-  
+
+  //iterate through the media list and print matching items
   for(vector<media*>::iterator it = mediaList.begin(); it != mediaList.end(); it++)
     {
       if((strcmp(title, (*it)->getTitle()) == 0) && (year = (*it)->getYear()))
@@ -121,7 +128,8 @@ void searchMedia(vector<media*> & mediaList)
 	}
     }
 }
-  
+
+//function to delete media item by title and year
 void deleteMedia(vector<media*> & mediaList)
 {
   cout << "Enter title: " << endl;
@@ -132,7 +140,8 @@ void deleteMedia(vector<media*> & mediaList)
   int year;
   cin >> year;
   cin.ignore();
-  
+
+  //iterate through the media list and delete matching items
   for(vector<media*>::iterator it = mediaList.begin(); it != mediaList.end(); it++)
     {
       if((strcmp(title, (*it)->getTitle()) == 0) && (year = (*it)->getYear()))
