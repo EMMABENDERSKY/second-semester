@@ -12,6 +12,5 @@ class item
  public:
   item();
   item(char*);
-  
-};
+  };
 #endif

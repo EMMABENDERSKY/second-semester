@@ -16,7 +16,11 @@ class room : public item
   vector<item*> items;
  public:
   room();
-  room(char*, char*);
-  
+  room(char*);
+  char* getDescription();
+  room* getExits();
+  vector<item*> getItems();
+  void pickUpItem();
+  void DropItem(item* item);
 };
 #endif

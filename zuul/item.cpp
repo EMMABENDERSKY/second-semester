@@ -6,7 +6,7 @@ using namespace std;
 
 item::item()
 {
-
+  name = new char[80];
 }
 
 item::item(char* newName)

@@ -6,13 +6,45 @@ using namespace std;
 
 room::room()
 {
+  description = new char[80];
+  
+}
+
+room::room(char* newDescription)
+{
+  description = new char[80];
+  strcpy(description, newDescription);
+  
+}
+
+char* room::getDescription()
+{
+  return description;
+}
+
+room* getExits()
+{
+  
+}
+
+vector<item*> room::getItems()
+{
+  for(vector<item*>::iterator it = items.begin(); it != items.end(); it++)
+    {
+      
+    }
+}
+
+void room::getItems()
+
+
+
+void room::pickUpItem()
+{
 
 }
 
-room::room(char* newName, char* newDescription)
+void room::dropItem(item* item)
 {
-  name = new char[80];
-  strcpy(name, newName);
-  description = new char[80];
-  strcpy(description, newDescription);
+  
 }
