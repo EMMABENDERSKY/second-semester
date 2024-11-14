@@ -14,13 +14,16 @@ class room : public item
   char* description;
   map<char*, room*> exists;
   vector<item*> items;
+  bool isVictoryRoom;
  public:
-  room();
   room(char*);
   char* getDescription();
-  room* getExits();
+  void setExit(char*, room*);
+  room* getExit(char*);
   vector<item*> getItems();
-  void pickUpItem();
-  void DropItem(item* item);
+  void addItem(item*);
+  void removeItem(item*);
+  void setVictoryRoom(bool);
+  bool isVictory();
 };
 #endif

@@ -10,7 +10,7 @@ class item
  protected:
   char* name;
  public:
-  item();
   item(char*);
+  char* getName();
   };
 #endif

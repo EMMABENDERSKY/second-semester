@@ -4,13 +4,13 @@
 
 using namespace std;
 
-item::item()
-{
-  name = new char[80];
-}
-
 item::item(char* newName)
 {
   name = new char[80];
   strcpy(name, newName);
+}
+
+char* item::getName()
+{
+  return name;
 }
