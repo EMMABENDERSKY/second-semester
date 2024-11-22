@@ -6,11 +6,10 @@
 
 using namespace std;
 
-Room::Room(char* newDescription, bool newVictoryRoom)
+Room::Room(const char* desc, bool VictoryRoom)
 {
-  description = new char[80];
-  strcpy(description, newDescription);
-  isVictoryRoom = newVictoryRoom;
+  strcpy(description, desc);
+  isVictoryRoom = VictoryRoom;
 }
 
 char* Room::getDescription()
@@ -18,14 +17,14 @@ char* Room::getDescription()
   return description;
 }
 
-void Room::setExit(char* direction, room* neighbor)
+void Room::setExit(const char* direction, Room* neighbor)
 {
   exits[direction] = neighbor;
 }
 
-Room* Room::getExit(char* direction)
+Room* Room::getExit(const char* direction)
 {
-
+  return exits; ////change////
 }
 
 vector<Item*> Room::getItems()
@@ -40,15 +39,22 @@ void Room::addItem(Item* item)
 
 void Room::removeItem(Item* item)
 {
-  item.erase(remove(items.begin(), items.end(), item), items.end());
+  for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++)
+    {
+      if(strcmp((*it)->getName(), item->getName()) == 0)
+	{
+      items.erase(it);
+      break;
+	}
+    }
 }
 
-void Room::setVitoryRoom(bool victoryRoom);
+void Room::setVictoryRoom(bool victoryRoom)
 {
-  isVictoryRoom = victoryRoom();
+  isVictoryRoom = victoryRoom;
 }
 
-bool Room::isVictory();
+bool Room::isVictory()
 {
-  return isVictoryRoom();
+  return isVictoryRoom;
 }

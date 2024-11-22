@@ -12,7 +12,7 @@ using namespace std;
 //function prototypes
 void setUpRooms(vector<Room*> & rooms, vector<Item*> & items);
 void displayRoom(Room* room);
-room* move(Room* currentRoom, char* direction);
+Room* move(Room* currentRoom, char* direction);
 bool checkWinCondition(vector<Item*> & invetory, Room* vectoryRoom);
 
 int main()
@@ -74,21 +74,21 @@ int main()
 
 void setUpRooms(vector<Room*> & rooms, vector<Item*> & items)
 {
-  rooms.push_back(new Room("Starting room with exits in all directions."));//#1
-  rooms.push_back(new room("1 Hall"));//#2
-  rooms.push_back(new Room("Library"));//#3
-  rooms.push_back(new Room("Classroom"));//#4
-  rooms.push_back(new Room("Gym"));//#5
-  rooms.push_back(new Room("Science lab"));//#6
-  rooms.push_back(new Room("2 Hall"));//#7
-  rooms.push_back(new Room("Cafeteria"));//#8
-  rooms.push_back(new Room("Bathroom"));//#9
-  rooms.push_back(new Room("Art room"));//#10
-  rooms.push_back(new Room("Auditorium"));//#11
-  rooms.push_back(new Room("3 Hall"));//#12
-  rooms.push_back(new Room("Band room"));//#13
-  rooms.push_back(new Room("Choir room"));//#14
-  rooms.push_back(new Room("Computer lab (VICTORY ROOM!!!!!)- drop all items here to win."));//#15
+  rooms.push_back(new Room("Starting room with exits in all directions.", false));//#1
+  rooms.push_back(new Room("1 Hall", false));//#2
+  rooms.push_back(new Room("Library", false));//#3
+  rooms.push_back(new Room("Classroom", false));//#4
+  rooms.push_back(new Room("Gym", false));//#5
+  rooms.push_back(new Room("Science lab", false));//#6
+  rooms.push_back(new Room("2 Hall", false));//#7
+  rooms.push_back(new Room("Cafeteria", false));//#8
+  rooms.push_back(new Room("Bathroom", false));//#9
+  rooms.push_back(new Room("Art room", false));//#10
+  rooms.push_back(new Room("Auditorium", false));//#11
+  rooms.push_back(new Room("3 Hall", false));//#12
+  rooms.push_back(new Room("Band room", false));//#13
+  rooms.push_back(new Room("Choir room", false));//#14
+  rooms.push_back(new Room("Computer lab (VICTORY ROOM!!!!!)- drop all items here to win.", true));//#15
 
   //link room with exits
   rooms[0]->setExit("NORTH", rooms[1]);//exit from room 0 to 1
@@ -150,19 +150,18 @@ void displayRoom(Room* room)
     cout << "WEST ";
 
   cout << "\nItems: ";
-  
-  
+    
   
 }
 
 Room* move(Room* currentRoom, char* direction)
 {
-
+  return currentRoom->getExit(direction);
 }
 
 bool checkWinCondition(vector<Item*> & invetory, Room* vectoryRoom)
 {
-
+  
 }
 
   

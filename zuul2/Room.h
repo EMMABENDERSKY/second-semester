@@ -11,15 +11,15 @@ using namespace std;
 class Room : public Item
 {
  private:
-  char* description;
-  map<char*, Room*> exists;
+  char description[80];
+  map<char*, Room*> exits;
   vector<Item*> items;
   bool isVictoryRoom;
  public:
-  Room(char*);
+  Room(const char*, bool);
   char* getDescription();
-  void setExit(char*, Room*);
-  Room* getExit(char*);
+  void setExit(const char*, Room*);
+  Room* getExit(const char*);
   vector<Item*> getItems();
   void addItem(Item*);
   void removeItem(Item*);

@@ -8,9 +8,9 @@ using namespace std;
 class Item
 {
  protected:
-  char* name;
+  char name[80];
  public:
-  Item(char*);
-  char* getName();
+  Item(const char*);
+  const char* getName();
   };
 #endif
