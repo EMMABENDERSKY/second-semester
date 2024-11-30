@@ -19,13 +19,23 @@ char* Room::getDescription()
 
 void Room::setExit(const char* direction, Room* neighbor)
 {
-  exits[direction] = neighbor;
+  char* directionCopy = new char[strlen(direction) + 1];
+  strcpy(directionCopy, direction);
+  exits[directionCopy] = neighbor;
 }
 
 Room* Room::getExit(const char* direction)
 {
-  return exits; ////change////
+  for (map<char*, Room*>::iterator it = exits.begin(); it != exits.end(); ++it)
+    {
+      if (strcmp(it->first, direction) == 0)  
+        {
+	  return it->second;  
+        }
+    }
+  return NULL; 
 }
+
 
 vector<Item*> Room::getItems()
 {
@@ -43,8 +53,8 @@ void Room::removeItem(Item* item)
     {
       if(strcmp((*it)->getName(), item->getName()) == 0)
 	{
-      items.erase(it);
-      break;
+	  items.erase(it);
+	  break;
 	}
     }
 }

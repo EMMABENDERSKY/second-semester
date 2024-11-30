@@ -10,6 +10,7 @@ class Item
  protected:
   char name[80];
  public:
+  Item();
   Item(const char*);
   const char* getName();
   };
