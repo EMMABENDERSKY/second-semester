@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+class Student
+{
+  public:
+    char* name;
+    int ID;
+    double GPA;
+};
+
+Student::Student()
+{
+  name = new char[80];
+  ID = 0;
+  GPA = 0;
+}
+
+Student::Student(char* newName, int newID, double newGPA)
+{
+  name = new char[80];
+  strcppy(name, newName);
+  ID = newID;
+  GPA = newGPA;
+}
+
+char* Student::getName()
+{
+  return name;
+}
+
+int Student::getID()
+{
+  return ID;
+}
+
+double Student::getGPA()
+{
+  return GPA;
+}
+  

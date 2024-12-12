@@ -1,0 +1,23 @@
+#include "Node.h"
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+void add(Node* head, Student* student);
+void remove(Node* head, Student* student);
+void print(Node* next);
+
+int main()
+{
+  Node* head = NULL;
+  
+
+  return 0;
+}
+
+void add(Node* head, Student* student)
+{
+  Node* current = head;
+  
+}
