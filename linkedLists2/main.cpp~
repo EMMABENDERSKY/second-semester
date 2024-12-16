@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+void addStudent();
+void printStudents();
+void deleteStudent();
+
+int main()
+{
+
+  while(true)
+    {
+      char command[10];
+      cout << "Enter a command (ADD/PRINT/DELETE/QUIT): " << endl;
+      cin.get(command, 10);
+      cin.get();
+
+      if(strcmp(command, "ADD") == 0)
+	addStudent();
+      else if(strcmp(command, "PRINT") == 0)
+	printStudents();
+      else if(strcmp(command, "DELETE") == 0)
+	deleteStudent();
+      else if(strcmp(command, "QUIT") == 0)
+	{
+	  exit(0);
+	  break;
+	}
+    }
+  return 0;
+}
