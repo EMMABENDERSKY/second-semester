@@ -9,7 +9,7 @@ Student::Student(char* newFirstName, char* newLastName, int newID, double newGPA
   firstName = new char[80];
   strcpy(firstName, newFirstName);
   lastName = new char[80];
-  strcpy(lastName, newlastName);
+  strcpy(lastName, newLastName);
   ID = newID;
   GPA = newGPA;
 }
