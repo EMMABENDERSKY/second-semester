@@ -1,11 +1,13 @@
 #include <iostream>
+#include "Node.h"
+#include "Student.h"
 #include <cstring>
 
 using namespace std;
 
-void addStudent(Node*& head);
+void addStudent(Node* head, Node* newNode);
 void printStudents(Node* head);
-void deleteStudent(Node*& head);
+void deleteStudent(Node* head);
 void averageGPA(Node* head, double sum, int count);
 
 int main()
@@ -20,7 +22,30 @@ int main()
       cin.get();
 
       if(strcmp(command, "ADD") == 0)
-	addStudent(head);
+	{
+	  char* firstName = new char[80];
+	  char* lastName = new char[80];
+	  int ID;
+	  double GPA;
+	  
+	  cout << "Enter first name: " << endl;
+	  cin.get(firstName, 80);
+	  cin.get();
+	  cout << "Enter last name: " << endl;
+	  cin.get(lastName, 80);
+	  cin.get();
+	  cout << "Enter ID: " << endl;
+	  cin >> ID;
+	  cin.ignore();
+	  cout << "Enter GPA: " << endl;
+	  cin >> GPA;
+	  cin.ignore();
+	  
+	  Student* newStudent = new Student(firstName, lastName, ID, GPA);
+	  Node* newNode = new Node(newStudent);
+	  
+	  addStudent(head, newNode);
+	}
       else if(strcmp(command, "PRINT") == 0)
 	printStudents(head);
       else if(strcmp(command, "DELETE") == 0)
@@ -36,45 +61,22 @@ int main()
   return 0;
 }
 
-void addStudent(Node*& head)
+void addStudent(Node* head, Node* newNode)
 {
-  char* firstName = new char[80];
-  char* lastName = new char[80];
-  int ID;
-  double GPA;
-  
-  cout << "Enter first name: " << endl;
-  cin.get(firstName, 80);
-  cin.get();
-  cout << "Enter last name: " << endl;
-  cin.get(lastName, 80);
-  cin.get();
-  cout << "Enter ID: " << endl;
-  cin >> ID;
-  cin.ignore();
-  cout << "Enter GPA: " << endl;
-  cin >> GPA;
-  cin.ignore();
-
-  Student* newStudent = new Student(firstName, lastName, ID, GPA);
-  Node* newNode = new Node(newStudent);
-
-  //if list is empty
-  if(head == NULL)
-    head = newNode;
-  else
-    {
-      //if the new student's ID is bigger than the current node and smaller than the next one
-      if(newStudent->getID() > head->getStudent()->getID() && newStudent->getID() < head->getNext()->getStudent()->getID())
-      {
-	//insert the new node and adjust the links
-	newNode()->getNext() = head->getNext();
-	head->getNext() = newNode;
-      }
-      else
-	addStudent(head->getNext());
+  // Base case: If the list is empty or we have found the position to insert the new node 
+  if (head == NULL || newNode->getStudent()->getID() < head->getStudent()->getID()) 
+    { 
+      //insert the new node and adjust the links
+      newNode->setNext(head); 
+      head = newNode;
+    } 
+  else 
+    { 
+      // Recursive case: Move to the next node and keep calling the function recursively
+      addStudent(head->getNext(), newNode); 
     }
 }
+
 
 void printStudents(Node* head)
 {
@@ -89,7 +91,7 @@ void printStudents(Node* head)
     }
 }
 
-void deleteStudent(Node*& head)
+void deleteStudent(Node* head)
 {
   int ID;
   cout << "Enter ID to remove student: " << endl;
@@ -103,16 +105,20 @@ void deleteStudent(Node*& head)
   
 }
  
-void averageGPA(Node* head, double sum, int count)
+void averageGPA(Node* head, double sum, int count) 
 {
-  if (head == NULL)
-    {
-      {
-	if (count == 0)
-	  count << 0 << endl;
-      }
-      cout << (sum * head->getStudent()->getGPA()) / count;
-    }
-  averageGPA(node->getNext(), sum + head->getStudent()->getGPA(), count + 1);
+  if (head == NULL) 
+    { 
+      if (count == 0) 
+	{
+	  cout << "No students in the list." << endl; 
+	  return; 	
+	}	
+      cout << "Average GPA: " << sum / count << endl; 
+      return; 
+    }	 
+  averageGPA(head->getNext(), sum + head->getStudent()->getGPA(), count + 1); 
 }
+
+
 
