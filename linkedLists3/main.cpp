@@ -2,13 +2,14 @@
 #include "Node.h"
 #include "Student.h"
 #include <cstring>
+#include <iomanip>
 
 using namespace std;
 
-void addStudent(Node* head, Node* newNode);
-void printStudents(Node* head);
-void deleteStudent(Node* head);
-void averageGPA(Node* head, double sum, int count);
+void addStudent(Node* & head, Node* newNode);
+void printStudents(Node* & head);
+void deleteStudent(Node* & head);
+void averageGPA(Node* & head, double sum, int count);
 
 int main()
 {
@@ -61,8 +62,9 @@ int main()
   return 0;
 }
 
-void addStudent(Node* head, Node* newNode)
+void addStudent(Node* & head, Node* newNode)
 {
+  Node* current = head;
   // Base case: If the list is empty or we have found the position to insert the new node 
   if (head == NULL || newNode->getStudent()->getID() < head->getStudent()->getID()) 
     { 
@@ -71,27 +73,30 @@ void addStudent(Node* head, Node* newNode)
       head = newNode;
     } 
   else 
-    { 
-      // Recursive case: Move to the next node and keep calling the function recursively
-      addStudent(head->getNext(), newNode); 
+    {
+      current = head->getNext();
+      //Recursive case: Move to the next node and keep calling the function recursively
+      addStudent(current, newNode); 
     }
 }
 
 
-void printStudents(Node* head)
+void printStudents(Node* & head)
 {
+  Node* current = head;
   if(head != NULL) //if the current node is not null
     {
       //print all details of the student in the current node
       cout << "First name: " << (head->getStudent())->getFirstName() << ", ";
       cout << "Last name: " << (head->getStudent())->getLastName() << ", ";
       cout << "ID: " << (head->getStudent())->getID() << ", ";
-      cout << "GPA: " << head->getStudent()->getGPA() << endl;
-      printStudents(head->getNext()); //recursive call to print the next node
+      cout << "GPA: " << setprecision(3) << head->getStudent()->getGPA() << fixed << endl;
+      current = head->getNext();
+      printStudents(current); //recursive call to print the next node
     }
 }
 
-void deleteStudent(Node* head)
+void deleteStudent(Node* & head)
 {
   int ID;
   cout << "Enter ID to remove student: " << endl;
@@ -105,8 +110,9 @@ void deleteStudent(Node* head)
   
 }
  
-void averageGPA(Node* head, double sum, int count) 
+void averageGPA(Node* & head, double sum, int count) 
 {
+  Node* current = head;
   if (head == NULL) 
     { 
       if (count == 0) 
@@ -116,8 +122,9 @@ void averageGPA(Node* head, double sum, int count)
 	}	
       cout << "Average GPA: " << sum / count << endl; 
       return; 
-    }	 
-  averageGPA(head->getNext(), sum + head->getStudent()->getGPA(), count + 1); 
+    }
+  current = head->getNext();
+  averageGPA(current, sum + head->getStudent()->getGPA(), count + 1); 
 }
 
 
