@@ -7,10 +7,9 @@ using namespace std;
 
 class Item
 {
- protected:
-  char name[80];
+ private:
+  const char* name;
  public:
-  Item();
   Item(const char*);
   const char* getName();
   };

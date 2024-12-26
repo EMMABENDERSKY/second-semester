@@ -6,65 +6,51 @@
 
 using namespace std;
 
-Room::Room(const char* desc, bool VictoryRoom)
+Room::Room(const char* newDescription, const char* newName)
 {
-  strcpy(description, desc);
-  isVictoryRoom = VictoryRoom;
+  description = new char[80];
+  strcpy(description, newDescription);
+  name = new char[80];
+  strcpy(name, newName);
 }
 
-char* Room::getDescription()
+void addExit(const char* direction, Room* room)
+{
+  exits[direction] = room;
+}
+
+const char* getDescription()
 {
   return description;
 }
 
-void Room::setExit(const char* direction, Room* neighbor)
+const char* getName()
 {
-  char* directionCopy = new char[strlen(direction) + 1];
-  strcpy(directionCopy, direction);
-  exits[directionCopy] = neighbor;
+  return name;
 }
 
-Room* Room::getExit(const char* direction)
+const map<const char*, Room*> & getExits()
 {
-  for (map<char*, Room*>::iterator it = exits.begin(); it != exits.end(); ++it)
-    {
-      if (strcmp(it->first, direction) == 0)  
-        {
-	  return it->second;  
-        }
-    }
-  return NULL; 
+  return exits;
 }
 
-
-vector<Item*> Room::getItems()
-{
-  return items;
-}
-
-void Room::addItem(Item* item)
+void addItem(Item* item)
 {
   items.push_back(item);
 }
 
-void Room::removeItem(Item* item)
+void removeItem(Item* item)
 {
-  for(vector<Item*>::iterator it = items.begin(); it != items.end(); it++)
-    {
-      if(strcmp((*it)->getName(), item->getName()) == 0)
-	{
-	  items.erase(it);
-	  break;
-	}
+  for (vector<Item*>::iterator it = items.begin(); it != items.end(); ++it) {
+    if (*it == item) {
+      items.erase(it);
+      break; 
     }
+  }
 }
 
-void Room::setVictoryRoom(bool victoryRoom)
+const vector<Item*> & getItems()
 {
-  isVictoryRoom = victoryRoom;
+  return items;
 }
 
-bool Room::isVictory()
-{
-  return isVictoryRoom;
-}
