@@ -6,51 +6,58 @@
 
 using namespace std;
 
-Room::Room(const char* newDescription, const char* newName)
+Room::Room(const char* newDescription, const char* newName) : Item(newName)
 {
-  description = new char[80];
-  strcpy(description, newDescription);
-  name = new char[80];
-  strcpy(name, newName);
+  description = newDescription;
+  name = newName;
 }
 
-void addExit(const char* direction, Room* room)
+Room::~Room()
+{
+  delete[] description;
+  delete[] name;
+}
+
+void Room::addExit(const char* direction, Room* room)
 {
   exits[direction] = room;
 }
 
-const char* getDescription()
+const char* Room::getDescription()
 {
   return description;
 }
 
-const char* getName()
+const char* Room::getName()
 {
   return name;
 }
 
-const map<const char*, Room*> & getExits()
+const map<const char*, Room*>& Room::getExits() const
 {
-  return exits;
+    return exits;
 }
 
-void addItem(Item* item)
+void Room::addItem(Item* item)
 {
   items.push_back(item);
 }
 
-void removeItem(Item* item)
+void Room::removeItem(Item* item)
 {
-  for (vector<Item*>::iterator it = items.begin(); it != items.end(); ++it) {
-    if (*it == item) {
-      items.erase(it);
-      break; 
+  for (vector<Item*>::iterator it = items.begin(); it != items.end(); ++it)
+    {
+      if (*it == item)
+	{
+	  items.erase(it);
+	  break; 
+	}
     }
-  }
 }
 
-const vector<Item*> & getItems()
+const vector<Item*>& Room::getItems() const
 {
-  return items;
+    return items;
 }
+
 

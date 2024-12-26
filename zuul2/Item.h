@@ -9,8 +9,9 @@ class Item
 {
  private:
   const char* name;
- public:
+
+public:
   Item(const char*);
-  const char* getName();
+  const char* getName() const;
   };
 #endif

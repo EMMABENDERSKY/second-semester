@@ -15,14 +15,16 @@ class Room : public Item
   const char* name;
   map< const char*, Room*> exits;
   vector<Item*> items;
- public:
+
+public:
   Room(const char*, const char*);
+  ~Room();
   void addExit(const char*, Room*);
   const char* getDescription();
   const char* getName();
-  const map<const char*, Room> & getExits();
+  const map<const char*, Room*>& getExits() const;
   void addItem(Item*);
   void removeItem(Item*);
-  const vector<Item*> & getItems();
+  const vector<Item*>& getItems() const;
 };
 #endif
