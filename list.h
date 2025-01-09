@@ -13,8 +13,8 @@ struct Node
 class list
 {
  public:
-  void build();
-  void copy();
+  void build(Node* & head);
+  void copy(Node* & head);
 
  private:
   Node* head;
