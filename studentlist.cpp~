@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cstring>
+#include <vector>
+
+using namespace std;
+
+struct Student
+{
+  char firstName[80];
+  char lastName[80];
+  int ID;
+  float GPA;
+};
+  
+int main()
+{
+  vector<Student*> students;
+  
+
+
+  return 0;
+}
+
+//Function to add a sudent
+void addStudent(vector<Student*> & students)
+{
+  Student* newStudent = new Student;
+
+  cout << "Enter first name: " << endl;
+  cin >> newStudent->firstName;
+  cout << "Enter last name: " << endl;
+  cin >> newStudent->lastName;
+  cout << "Enter ID: " << endl;
+  cin >> newStudent->ID;
+  cout << "Enter GPA: " << endl;
+  cin >> newStudent->GPA;
+
+  students.push_back(newStudent);
+}
+
+//Function to print the student list
+
+
+
+
+
+//Function to delete a student 
+void deleteStudent(vector<Student*> & students)
+{
+  int ID;
+  cout << "Enter ID to delete: " << endl;
+  cin >> ID;
+
+  for(vector<Student*>::iterator it = students.begin(); it != students.end(); it++)
+    {
+      if((*it)->ID == ID)
+	{
+	  students.erase(it);
+	}
+    }
+ 
+
+}

@@ -1,0 +1,17 @@
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
+#include <iostream>
+
+using namespace std;
+
+class HashTable
+{
+ private:
+  Student** table;
+  int tableSize;
+
+ public:
+  int hashFunction(int ID);
+  
+};
+#endif

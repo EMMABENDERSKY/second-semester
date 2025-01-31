@@ -161,23 +161,20 @@ Room* move(Room* currentRoom, char* direction)
 
 bool checkWinCondition(vector<Item*>& inventory, Room* victoryRoom)
 {
-  for (int i = 0; i < inventory.size(); i++)
+  bool foundInRoom;
+  
+  for(vector<Item*>::iterator it = inventory.begin(); it != inventory.end(); it++)
     {
-      bool foundInRoom = false;
-      
-      for (int j = 0; j < victoryRoom->getItems().size(); j++)
-        {
-	  if (strcmp(inventory[i]->getName(), victoryRoom->getItems()[j]->getName()) == 0)
-            {
-	      foundInRoom = true;
-	      break;  
-            }
-        }
-      if (!foundInRoom)
-        {
-	  return false;
-        }
+      foundInRoom = false;
+
+      if(strcmp((*it)->getName(), victoryRoom->getItems()) == 0)
+	{
+	  foundInRoom = true;
+	  break;
+	}
     }
+  if(!foundInRoom)
+    return false;
   return true;
 }
 

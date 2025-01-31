@@ -1,0 +1,9 @@
+#include <iostream>
+#include "HashTable.h"
+
+using namespace std;
+
+int HashTable::hashFunction(int ID)
+{
+
+}
