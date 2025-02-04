@@ -19,7 +19,7 @@ Node::Node (Student* s) {
 // destructor
 // no arguments; returns nothing
 Node::~Node () {
-  delete &student;
+  delete student;
   next = NULL;
 }
 

@@ -61,21 +61,18 @@ void addStudent(Node*& head)
   Student* newStudent = new Student(firstName, lastName, ID, GPA);
   Node* newNode = new Node(newStudent);
 
-  //if list is empty
-  if(head == NULL)
-    head = newNode;
-  else
-    {
-      //if the new student's ID is bigger than the current node and smaller than the next one
-      if(newStudent->getID() > head->getStudent()->getID() && newStudent->getID() < head->getNext()->getStudent()->getID())
-      {
-	//insert the new node and adjust the links
-	newNode()->getNext() = head->getNext();
-	head->getNext() = newNode;
-      }
-      else
-	addStudent(head->getNext());
-    }
+  // Base case: If the list is empty or we have found the position to insert the new node 
+  if (head == NULL || newStudent->getID() < head->getStudent()->getID()) 
+    { 
+      //insert the new node and adjust the links
+      newNode->next = head; 
+      head = newNode;
+    } 
+  else 
+    { 
+      // Recursive case: Move to the next node and keep calling the function recursively
+      addStudent(head->getNext(), newNode); 
+    } 
 }
 
 void printStudents(Node* head)
@@ -110,11 +107,13 @@ void averageGPA(Node* head, double sum, int count)
   if (head == NULL)
     {
       {
-	if (count == 0)
-	  count << 0 << endl;
+        if (count == 0)
+          count << 0 << endl;
       }
       cout << (sum * head->getStudent()->getGPA()) / count;
     }
   averageGPA(node->getNext(), sum + head->getStudent()->getGPA(), count + 1);
 }
+
+
 
