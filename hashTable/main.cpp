@@ -5,14 +5,6 @@
 
 using namespace std;
 
-struct Student
-{
-  char firstName[80];
-  char lastName[80];
-  int ID;
-  float GPA;
-};
-
 int main()
 {
   srand(time(0));
