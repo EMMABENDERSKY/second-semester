@@ -6,9 +6,9 @@ using namespace std;
 
 struct Student
 {
+  int ID;
   char firstName[80];
   char lastName[80];
-  int ID;
   float GPA;
   Student* next;
 };
@@ -26,7 +26,7 @@ public:
   int hashFunction(int);
   void rehash();
   void addStudent(char, char, float);
-  void deleteStudent();
+  void deleteStudent(int);
   void printStudent(int);
 };
 #endif

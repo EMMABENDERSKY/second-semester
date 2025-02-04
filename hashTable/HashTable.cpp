@@ -68,5 +68,31 @@ void HashTable::rehash() //when chain > 3
 
 void HashTable::addStudent(char firstName, char lastName, float GPA)
 {
+  int ID = IDcounter++;
+  int hash = hashFunction(ID);
+
+  Student* newStudent = new Student;
+  newStudent->ID = ID;
+  newStudent->firstName = firstName;
+  newStudent->lastName = lastName;
+  newStudent->GPA = GPA;
+  newStudent->next = table[hash];
+
+  table[hash] = newStudent;
+
+  int chainLength = 0;
+  Student* temp = table[hash];
+  while(temp != NULL)
+    {
+      chainLength++;
+      temp = temp->next;
+    }
   
+  if(chainLength > 3)
+    rehash();
+}
+
+void HashTable::deleteStudent(int)
+{
+
 }
