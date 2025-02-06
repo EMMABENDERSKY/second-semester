@@ -26,7 +26,7 @@ public:
   int hashFunction(int);
   void rehash();
   void addStudent(char, char, float);
+  void printStudents();
   void deleteStudent(int);
-  void printStudent(int);
 };
 #endif

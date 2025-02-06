@@ -66,6 +66,7 @@ void HashTable::rehash() //when chain > 3
   tableSize = newTableSize;
 }
 
+//Add a student
 void HashTable::addStudent(char firstName, char lastName, float GPA)
 {
   int ID = IDcounter++;
@@ -92,7 +93,46 @@ void HashTable::addStudent(char firstName, char lastName, float GPA)
     rehash();
 }
 
-void HashTable::deleteStudent(int)
+//Print students
+void HashTable::printStudents()
 {
+  for(int i = 0; i < tableSize; i++)
+    {
+      Student* current = table[i];
+      while(current != NULL)
+        {
+          cout << "ID: " << current->ID << endl;
+          cout << "First name: " << current->firstName << endl;
+          cout << "Last name: " << current->lastName << endl;
+          cout << "GPA: " << current->GPA << endl;
+          cout << endl << endl;
 
+          current = current->next;
+        }
+    }
+}
+
+//Delete a student by ID
+void HashTable::deleteStudent(int ID)
+{
+  int hash = hashFunction(ID);
+  Student* current = table[hash];
+  Student* prev = NULL;
+
+  while(current != NULL)
+    {
+      if(current->ID == ID)
+	{
+	  if(prev == NULL)
+	    table[hash] = current->next;
+	  else
+	    prev->next = current->next;
+	  delete current;
+	  cout << "Student " << ID << " deleted." << endl;
+	  return;
+	}
+      prev = current;
+      current = current->next;
+    }
+  cout << "Student " << ID << " not found." << endl;
 }
