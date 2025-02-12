@@ -1,61 +1,86 @@
-#include <iosteam>
+#include <iostream>
 
 using namespace std;
 
-void addNum(int heap[101], int heapSize, int num);
-void swap(int heap[101], int child, int parent); // swapping child with parent
-void display(int heap[101], int heapSize);
-int removeRoot(int heap[101]);
-void removeAll(int heap[101]);
+void addNum(int heap[101], int & size, int num);
+void swap(int heap[101], int childIndex, int parentIndex); // swapping child with parent
+void display(int heap[101], int size, int index = 1, ind depth = 0);
+void removeRoot(int heap[101], int & size);
+void removeAll(int heap[101], int & size);
 
 
 
 int main ()
 {
   int heap[101];
+  int size = 0;
 
+  cout << "Enter number or file name to insert: " << endl;
   
   return 0;
 }
 
-void addNum(int heap[101], int heapSize, int num)
+void addNum(int heap[101], int & size, int num)
 {
-  int i = heapSize + 1;
-  heap[i] = num
-  if(heap[i] > heap[floor(heap[i] / 2)])
-    swap(heap, heap[i], heap[floor(heap[i] /2)]);
-  else
-    return;
-  addNum(heap, heapSize + 1, num);
+  if (size == 100)
+    {
+      cout << "Heap is full!" << endl;
+      return;
+    }
+  
+  int i = size++;
+  heap[i] = num;
+  
+  while(i > 1 && heap[i] > heap[floor(i / 2)]) //while the new num is bigger than its parent
+    swap(heap, i, floor(heap[i] /2)); //swap between them
 }
 
 void swap(int heap[101], int childIndex, int parentIndex)
 {
-  int temp = heap[floor(childIndex / 2)];
+  int temp = heap[childIndex];
   heap[parentIndex] = heap[childIndex];
   heap[childIndex] = temp;
 }
 
-void display(int heap[101], int heapSize)
+void display(int heap[101], int size, int index = 1, ind depth = 0)
 {
-  cout << "    " << heap[i] << endl;
-  for(int i = 1; i < heapSize; i++)
+  if (index > size)
+    return;
+  display(heap, size, index * 2 + 1, depth + 1);
+  cout <<
+    display(heap, size, index * 2, depth + 1);
+  
+}
+
+void removeRoot(int heap[101], int & size)
+{
+  int maxValue = heap[1];
+  heap[1] = heap[size--];  
+
+  //heapify down
+  int i = 1;
+  while(i * 2 <= size) // while child index is equal or smaller to the heap size 
     {
-      cout << heap[i * 2] << "        " << heap [i * 2 + 1] << endl;
+      int largerChild = max(heap[i * 2], heap[i * 2 + 1]);
+      if(largerChild == heap[i * 2])
+	int largerChildIndex = i * 2;
+      else if(largerChild == heap[i * 2 + 1])
+	largerChildIndex = i * 2 + 1;
+      
+      //
+      if(heap[i] >= heap[largerChildIndex])
+	break;
+
+      swap(heap, i, largerChildIndex);
     }
+  cout << maxValue << " removed" << endl;
 }
 
-int removeRoot(int heap[101])
+void removeAll(int heap[101], int & size)
 {
-  int temp = heap[1];
-  if(heap[3] > heap[2])
+  while(size > 0)
     {
-      heap[1] = heap[3];
-      
-      
-}
-
-void removeAll(int heap[101])
-{
-
+      removeRoot(heap, size);
+      size--;
+    }
 }
