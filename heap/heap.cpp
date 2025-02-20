@@ -1,4 +1,7 @@
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <cstring>
 
 using namespace std;
 
@@ -7,8 +10,7 @@ void swap(int heap[101], int childIndex, int parentIndex); // swapping child wit
 void display(int heap[101], int size, int index = 1, ind depth = 0);
 void removeRoot(int heap[101], int & size);
 void removeAll(int heap[101], int & size);
-
-
+void handleInput(int heap[101], int & size);
 
 int main ()
 {
@@ -38,8 +40,8 @@ void addNum(int heap[101], int & size, int num)
 void swap(int heap[101], int childIndex, int parentIndex)
 {
   int temp = heap[childIndex];
-  heap[parentIndex] = heap[childIndex];
-  heap[childIndex] = temp;
+  heap[childIndex] = heap[parentIndex];
+  heap[parentIndex] = temp;
 }
 
 void display(int heap[101], int size, int index = 1, ind depth = 0)
@@ -83,4 +85,15 @@ void removeAll(int heap[101], int & size)
       removeRoot(heap, size);
       size--;
     }
+}
+
+void handleInput(int heap[101], int & size)
+{
+  cout << "Enter space-separated numbers (1-1000) or filename: " << endl;
+  char input[4];
+  cin >> input;
+  cin.ignore();
+
+  ifstream numbers(numbers.txt);
+  
 }

@@ -1,0 +1,99 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <cstring>
+
+using namespace std;
+
+void addNum(int heap[101], int & size, int num);
+void swap(int heap[101], int childIndex, int parentIndex); // swapping child with parent
+void display(int heap[101], int size, int index = 1, ind depth = 0);
+void removeRoot(int heap[101], int & size);
+void removeAll(int heap[101], int & size);
+void handleInput(int heap[101], int & size);
+
+int main ()
+{
+  int heap[101];
+  int size = 0;
+
+  cout << "Enter number or file name to insert: " << endl;
+  
+  return 0;
+}
+
+void addNum(int heap[101], int & size, int num)
+{
+  if (size == 100)
+    {
+      cout << "Heap is full!" << endl;
+      return;
+    }
+  
+  int i = size++;
+  heap[i] = num;
+  
+  while(i > 1 && heap[i] > heap[floor(i / 2)]) //while the new num is bigger than its parent
+    swap(heap, i, floor(heap[i] /2)); //swap between them
+}
+
+void swap(int heap[101], int childIndex, int parentIndex)
+{
+  int temp = heap[childIndex];
+  heap[childIndex] = heap[parentIndex];
+  heap[parentIndex] = temp;
+}
+
+void display(int heap[101], int size, int index = 1, ind depth = 0)
+{
+  if (index > size)
+    return;
+  display(heap, size, index * 2 + 1, depth + 1);
+  cout <<
+    display(heap, size, index * 2, depth + 1);
+  
+}
+
+void removeRoot(int heap[101], int & size)
+{
+  int maxValue = heap[1];
+  heap[1] = heap[size--];  
+
+  //heapify down
+  int i = 1;
+  while(i * 2 <= size) // while child index is equal or smaller to the heap size 
+    {
+      int largerChild = max(heap[i * 2], heap[i * 2 + 1]);
+      if(largerChild == heap[i * 2])
+	int largerChildIndex = i * 2;
+      else if(largerChild == heap[i * 2 + 1])
+	largerChildIndex = i * 2 + 1;
+      
+      //
+      if(heap[i] >= heap[largerChildIndex])
+	break;
+
+      swap(heap, i, largerChildIndex);
+    }
+  cout << maxValue << " removed" << endl;
+}
+
+void removeAll(int heap[101], int & size)
+{
+  while(size > 0)
+    {
+      removeRoot(heap, size);
+      size--;
+    }
+}
+
+void handleInput(int heap[101], int & size)
+{
+  cout << "Enter space-separated numbers (1-1000) or filename: " << endl;
+  char input[101];
+  cin >> input;
+  cin.ignore();
+
+  ifstream numbers(numbers.txt);
+  
+}
