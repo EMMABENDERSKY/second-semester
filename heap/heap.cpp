@@ -7,24 +7,54 @@
 using namespace std;
 
 void addNum(int heap[101], int & size, int num); //Function to add a number to the heap
+void addFile(int heap[101], int & size); //Function to add numbers from a file to the heap
 void swap(int heap[101], int childIndex, int parentIndex); //Function to swap two elements in the heap
 void display(int heap[101], int size, int index, int depth); //Function to display the heap structure
 void removeRoot(int heap[101], int & size); //Function to remove the root (maximum element) from the heap
 void removeAll(int heap[101], int & size); //Function to remove all elements from the heap
-void handleInput(int heap[101], int & size); //Function to handle user input for heap creation
 
 int main ()
 {
   int heap[101];
   int size = 0;
-  
-  handleInput(heap, size);
-  cout << "Heap structure: " << endl;
-  display(heap, size, 1, 0);
 
-  cout << "Removing all elements: " << endl;
-  removeAll(heap, size);
-  
+  while(true)
+    {
+      char command[80];
+      cout << "Enter command(ADD NUMBER/ADD FILE/REMOVE/REMOVE ALL/DISPLAY/QUIT):" << endl;
+      cin.get(command, 80);
+      cin.get();
+
+      if(strcmp(command, "ADD NUMBER") == 0)
+	{
+	  int num;
+	  cout << "Enter a number between 1 and 1000: " << endl;
+	  cin >> num;
+	  cin.ignore();
+	  addNum(heap, size, num);
+	}
+      else if(strcmp(command, "ADD FILE") == 0)
+	{
+	  addFile(heap, size);
+	}
+      else if(strcmp(command, "REMOVE") == 0)
+	{
+	  removeRoot(heap, size);
+	}
+      else if(strcmp(command, "REMOVE ALL") == 0)
+	{
+	  removeAll(heap, size);
+	}
+      else if(strcmp(command, "DISPLAY") == 0)
+	{
+	  display(heap, size, 1, 0);
+	}
+      else if(strcmp(command, "QUIT") == 0)
+	{
+	  exit(0);
+	  break;
+	}
+    }
   return 0;
 }
 
@@ -46,6 +76,26 @@ void addNum(int heap[101], int & size, int num)
     }
 }
 
+void addFile(int heap[101], int & size)
+{
+  cout << "Enter fileName: " << endl;
+  char filename[80];
+  cin.get(filename, 80);
+  cin.get();
+  ifstream file(filename);
+  if (file)
+    {
+      int num;
+      while(file >> num)
+	if(num >= 1 && num <= 1000)
+	  addNum(heap, size, num);
+      
+      file.close();
+    }
+  else 
+    cout << "File doesn't exist" << endl;
+}
+
 void swap(int heap[101], int childIndex, int parentIndex)
 {
   int temp = heap[childIndex];
@@ -55,6 +105,12 @@ void swap(int heap[101], int childIndex, int parentIndex)
 
 void display(int heap[101], int size, int index, int depth)
 {
+  if(size == 0)
+    {
+      cout << "heap is empty!" << endl;
+      return;
+    }
+  
   if (index > size)
     return;
   
@@ -99,48 +155,4 @@ void removeAll(int heap[101], int & size)
 {
   while(size > 0)
       removeRoot(heap, size);
-}
-
-void handleInput(int heap[101], int & size)
-{
-  cout << "Enter space-separated numbers (1-1000) or filename: " << endl;
-  char input[101];
-  cin.getline(input, 101);
-
-  if(input[0] >= '1' && input[0] <= '9') //If input is space-separated numbers
-    {
-      int num;
-      char *ptr = input;
-      
-      while(*ptr != '\0')
-	{
-	  while(*ptr == ' ')
-	    ptr++;
-	  
-	  num = 0;
-	  while(*ptr >= '0' && *ptr <= '9')
-	    {
-	      num = num * 10 + (*ptr - '0');
-	      ptr++;
-	    }
-
-	  if(num >= 1 && num <= 1000)
-	    addNum(heap, size, num);
-	}
-    }
-  else //If input is a filename
-    {
-      ifstream file(input);
-      if (file)
-	{
-	  int num;
-	  while(file >> num)
-	    if(num >= 1 && num <= 1000)
-	      addNum(heap, size, num);
-
-	  file.close();
-	}
-      else //if file doesn't exist
-	cout << "File doesn't exist" << endl;
-    }
 }
