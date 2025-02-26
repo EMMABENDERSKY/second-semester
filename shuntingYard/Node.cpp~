@@ -1,0 +1,27 @@
+#include <iostream>
+#include "treeNode.h"
+
+using namespace std;
+
+treeNode::treeNode(char* newData)
+{
+  data = new char[80];
+  strcpy(data, newData);
+  left = NULL;
+  right = NULL;
+}
+
+treeNode::~treeNode()
+{
+  delete & data;
+  delete & left;
+  delete & right;
+}
+
+char* getData()
+{
+  
+}
+
+
+

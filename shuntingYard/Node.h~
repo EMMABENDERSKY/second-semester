@@ -1,0 +1,21 @@
+#ifndef TREENODE_H
+#define TREENODE_H
+#include <iostream>
+
+using namespace std;
+
+class treeNode
+{
+ public:
+  treeNode(int);
+  ~treeNode();
+  int getData();
+  treeNode* getLeft();
+  treeNode* getRight();
+  
+ private:
+  int data;
+  treeNode* left;
+  treeNode* right;
+};
+#endif
