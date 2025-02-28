@@ -8,6 +8,7 @@ struct Stack
 {
   Node* top = NULL;
 
+  //Function to add an item to the front of the stack
   void push(char* value)
   {
     Node* newNode = new Node();
@@ -16,6 +17,7 @@ struct Stack
     top = newNode;
   }
 
+  //Function to remove and return an item from the top of the stack
   char* pop()
   {
     if(top == NULL)
@@ -27,6 +29,7 @@ struct Stack
     return value;
   }
 
+  //Function to return the item from the top without removing it from the stack
   char* peek()
   {
     if (top == NULL)
@@ -34,11 +37,13 @@ struct Stack
     return top->getValue();
   }
 
+  //Function to check if the stack is empty
   bool isEmpty()
   {
     if(top == NULL)
       return true;
     return false;
+  }
 };
 
 struct Queue
@@ -46,6 +51,7 @@ struct Queue
   Node* front = NULL;
   Node* back = NULL;
 
+  //Function to add an item from the back of the queue
   void enqueue(char* value)
   {
     Node* newNode = new Node();
@@ -59,18 +65,100 @@ struct Queue
     back = newNode;
   }
 
-  char* dequeue()
+  //Function to remove and return the item from the front of the queue
+  char dequeue()
   {
+    if(front == NULL)
+      return NULL;
+    char value = front->getValue();
+    Node* temp = front;
+    front = front->getNext();
+    if(front == NULL)
+      back = NULL;
+    delete temp;
+    return value;
+  }
 
+  //Funtion to check is the queue is empty
+  bool isEmpty()
+  {
+    if(front == NULL)
+      return true;
+    return false;
   }
 };
 
-void printPrefix();
-void printInfix();
-void printPostfix();
+int operators(char op);
+void shuntingYard(const char* infix, Queue & outputQueue);
+void buildExpressionTree(Queue & postfixQueue);
+void printInfix(Node* root);
+void printPrefix(Node* root);
+void printPostfix(Node* root);
 
 int main()
 {
+  char infix [100];
+  cout << "Enter an infix notation mathematical expression, using spaces between each token:" << endl;
+  cin >> infix;
+  cin.ignore();
 
+  cout << "Postfix notation:" << endl;
+  printPostfix();
+
+  chat command[80];
+  cout << "Enter command(INFIX/PREFIX/POSTFIX):" << endl;
+  cin.get(command, 80);
+  cin.get();
+
+  if(strcmp(command, "INFIX") == 0)
+    printInfix();
+  else if(strcmp(command, "PREFIX") == 0)
+    printPrefix();
+  else if(strcmp(command, "POSTFIX") == 0)
+    printPostfix();
+  
   return 0;
+}
+
+//
+int operators(char op)
+{
+  if(op == '+' || op == '-')
+    return 1;
+  if(op == '*' || op == '/')
+    return 2;
+  return 3;
+}
+
+//Function to convert from infix to potfix
+void shuntingYard(const char* infix, Queue & outputQueue)
+{
+  
+}
+
+void buildExpressionTree(Queue & postfixQueue)
+{
+  Stack treeStack;
+  while(postfixQueue.isEmpty() == false)
+    {
+      char token = prefixQueue.dequeue();
+      Node* newNode = new Node();
+      newNode->setValue(token);
+      
+    }
+}
+
+void printInfix(Node* root)
+{
+
+}
+
+void printPrefix(Node* root)
+{
+
+}
+
+void printPostfix(Node* root)
+{
+
 }
