@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Node.h"
 #include <cstring>
+#include <cctype>
 
 using namespace std;
 
@@ -90,7 +91,7 @@ struct Queue
 
 int operators(char op);
 void shuntingYard(const char* infix, Queue & outputQueue);
-void buildExpressionTree(Queue & postfixQueue);
+Node* buildExpressionTree(Queue & postfixQueue);
 void printInfix(Node* root);
 void printPrefix(Node* root);
 void printPostfix(Node* root);
@@ -105,17 +106,29 @@ int main()
   cout << "Postfix notation:" << endl;
   printPostfix();
 
-  chat command[80];
+  char command[80];
   cout << "Enter command(INFIX/PREFIX/POSTFIX):" << endl;
   cin.get(command, 80);
   cin.get();
 
   if(strcmp(command, "INFIX") == 0)
-    printInfix();
+    {
+      cout << "infix notation:" << endl;
+      printInfix();
+      cout << endl;
+    }
   else if(strcmp(command, "PREFIX") == 0)
-    printPrefix();
+    {
+      cout << "prefix notation:" << endl;
+      printPrefix();
+      cout << endl;
+    }
   else if(strcmp(command, "POSTFIX") == 0)
-    printPostfix();
+    {
+      cout << "postfix notation:" << endl;
+      printPostfix();
+      cout << endl;
+    }
   
   return 0;
 }
@@ -133,10 +146,11 @@ int operators(char op)
 //Function to convert from infix to potfix
 void shuntingYard(const char* infix, Queue & outputQueue)
 {
-  
+  Stack opStack;
+  while(
 }
 
-void buildExpressionTree(Queue & postfixQueue)
+Node* buildExpressionTree(Queue & postfixQueue)
 {
   Stack treeStack;
   while(postfixQueue.isEmpty() == false)
@@ -144,13 +158,22 @@ void buildExpressionTree(Queue & postfixQueue)
       char token = prefixQueue.dequeue();
       Node* newNode = new Node();
       newNode->setValue(token);
-      
+
+      if(isdigit(token))
+	treeStack.push(token);
+      else
+	{
+	  newNode->setLeft(treeStack.pop);
+	  newNode->setRight(treeStack.pop);
+	  treeStack.push(token);
+	}
     }
+  return new Node(treeStack.pop);
 }
 
 void printInfix(Node* root)
 {
-
+  
 }
 
 void printPrefix(Node* root)
