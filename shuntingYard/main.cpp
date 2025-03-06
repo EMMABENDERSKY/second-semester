@@ -147,7 +147,18 @@ int operators(char op)
 void shuntingYard(const char* infix, Queue & outputQueue)
 {
   Stack opStack;
-  while(
+  while(*infix)
+    {
+      if(isdigit(*infix))
+	outputQueue.enqueue(*infix);
+      else if (*infix == '(')
+	opStack.push(*infix);
+      else if (*infix == ')')
+	while(opStack.isEmpty() == false)
+	  {
+	    opStack.push(*infix);
+	  }
+    }
 }
 
 Node* buildExpressionTree(Queue & postfixQueue)
