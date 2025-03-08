@@ -6,27 +6,27 @@ using namespace std;
 
 Node::Node()
 {
-  value = new char[1];
+  value = '\0';
   left = NULL;
   right = NULL;
+  next = NULL;
 }
 
-Node::Node(char* v, Node* l, Node* r)
+Node::Node(char v, Node* l, Node* r)
 {
-  value = new char[1];
-  strcpy(value, v);
+  value = v;
   left = l;
   right = r;
+  next = NULL;
 }
 
 Node::~Node()
 {
-  delete [] value;
   delete left;
   delete right;
 }
 
-char* Node::getValue()
+char Node::getValue()
 {
   return value;
 }
@@ -46,7 +46,7 @@ Node* Node::getNext()
   return next;
 }
 
-void Node::setValue(char* v)
+void Node::setValue(char v)
 {
   value = v;
 }

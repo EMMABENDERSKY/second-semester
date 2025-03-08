@@ -9,19 +9,19 @@ class Node
 {
  public:
   Node();
-  Node(char*, Node*, Node*);
+  Node(char, Node*, Node*);
   ~Node();
-  char* getValue();
+  char getValue();
   Node* getLeft();
   Node* getRight();
   Node* getNext();
-  void setValue(char*);
+  void setValue(char);
   void setLeft(Node*);
   void setRight(Node*);
   void setNext(Node*);
   
  private:
-  char* value;
+  char value;
   Node* left;
   Node* right;
   Node* next;
