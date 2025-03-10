@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+  Node* left;
+  Node* right;
+  int value;
+};
+
+int main()
+{
+
+  while(true)
+    {
+      char command[80];
+      cout << "Enter command (ADD/REMOVE/SEARCH/PRINT/QUIT):" << endl;
+      cin.get(command, 80);
+      cin.get();
+
+      if(strcmp(command, "ADD") == 0)
+	{
+
+	}
+      else if(
+  
+  return 0;
+}
