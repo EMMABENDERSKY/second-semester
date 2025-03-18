@@ -18,7 +18,8 @@ void addFile(Node* root);
 Node* getSuccessor(Node* curr);
 void remove(Node* root, int value);
 bool search(Node* root, int value);
-void print(Node* root, int index, int depth);
+int size(Node* root);
+void print(Node* root, int size, int index, int depth);
 
 int main()
 {
@@ -76,7 +77,7 @@ int main()
       
       else if(strcmp(command, "PRINT") == 0)
 	{
-	  print(root, 1, 0);
+	  print(root, size(root), 1, 0);
 	}
       else if(strcmp(command, "QUIT") == 0)
 	{
@@ -193,10 +194,22 @@ bool search(Node* root, int value)
   return false;
 }
 
-void print(Node* root, int index, int depth)
+int size(Node* root)
 {
-  if (root == NULL)
-    return;
+  if(root == NULL)
+    return 0;
+
+  //Find size or left and right subtree
+  int left = size(root->left);
+  int right = size(root->right);
+
+  //return the size of curr subtree
+  return left+right+1;
+}
+
+void print(Node* root, int size, int index, int depth)
+{
+  
 
   
 }
