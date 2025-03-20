@@ -13,13 +13,13 @@ struct Node
 };
 
 //Function prototypes
-void addNum(Node* root, int num); 
+Node* addNum(Node* root, int num); 
 void addFile(Node* root);
 Node* getSuccessor(Node* curr);
-void remove(Node* root, int value);
-bool search(Node* root, int value);
+Node* remove(Node* root, int num);
+bool search(Node* root, int num);
 int size(Node* root);
-void print(Node* root, int size, int index, int depth);
+void print(Node* root, int size, int space);
 
 int main()
 {
@@ -43,7 +43,7 @@ int main()
 	  if(strcmp(source, "CONSOLE") == 0)
 	    {
 	      int num;
-	      cout << "Emter a number between 1 and 999:" << endl;
+	      cout << "Enter a number between 1 and 999:" << endl;
 	      cin >> num;
 	      cin.ignore();
 	      addNum(root, num);
@@ -77,7 +77,7 @@ int main()
       
       else if(strcmp(command, "PRINT") == 0)
 	{
-	  print(root, size(root), 1, 0);
+	  print(root, size(root), 0);
 	}
       else if(strcmp(command, "QUIT") == 0)
 	{
@@ -88,18 +88,19 @@ int main()
   return 0;
 }
 
-void addNum(Node* root, int num)
+Node* addNum(Node* root, int num)
 {
   //If the tree is empty, add a new node
   if(root == NULL)
     {
       Node* newNode = new Node;
       newNode->value = num;
+      return newNode;
     }
 
   //If the value is already present in the tree, return
   if(root->value == num)
-    return;
+    return root;
 
   //Otherwise, recur down the tree
   //If the value is greater than the current node's value, insert it in the right subtree
@@ -109,6 +110,9 @@ void addNum(Node* root, int num)
   //If the value is smaller than the current node's value, insert it in the left subtree
   else
     root->left = addNum(root->left, num);
+
+  //Return the (unchanged) root
+  return root;
 }
 
 void addFile(Node* root)
@@ -123,7 +127,7 @@ void addFile(Node* root)
       int num;
       while(file >> num)
 	if(num >= 1 && num <= 999)
-	  addNum(root);
+	  addNum(root, num);
       file.close();
     }
   else
@@ -139,17 +143,17 @@ Node* getSuccessor(Node* curr)
   return curr;
 }
 
-void remove(Node* root, int value)
+Node* remove(Node* root, int num)
 {
   //Base case
   if (root == NULL)
-    return;
+    return root;
 
   //If the value is in a subtree
-  if(root->value > value)
-    root->left = remove(root->left, value);
-  else if(root->value < value)
-    root->right = remove(root->right, value);
+  if(root->value > num)
+    root->left = remove(root->left, num);
+  else if(root->value < num)
+    root->right = remove(root->right, num);
 
   //If the root matches with the value
   else
@@ -175,41 +179,57 @@ void remove(Node* root, int value)
       root->value = succ->value;
       root->right = remove(root->right, succ->value);
     }
+  return root;
 }
 
-bool search(Node* root, int value)
+bool search(Node* root, int num)
 {
   //Base case: root is NULL or value is present in the root
-  if(root == NULL || root->value = value)
+  if((root == NULL) || (root->value = num))
     return true;
 
   //If value is greater than the root
-  if(root->value < value)
-    search(root->right, value);
+  if(root->value < num)
+    search(root->right, num);
 
   //If value is smaller than the root
-  if(root->value > value)
-    search(root->left, value);
+  if(root->value > num)
+    search(root->left, num);
 
   return false;
 }
 
 int size(Node* root)
 {
-  if(root == NULL)
-    return 0;
+  if(root == NULL);
+  return 0;
 
-  //Find size or left and right subtree
+  //Find size of left and right subtree
   int left = size(root->left);
   int right = size(root->right);
 
-  //return the size of curr subtree
-  return left+right+1;
+  //Return the size of curr subtree
+  return left + right + 1;
 }
 
-void print(Node* root, int size, int index, int depth)
+void print(Node* root, int size, int space)
 {
-  
+  //Base case
+  if(root == NULL)
+    return;
 
-  
+  //Increase distance between levels
+  space += size;
+
+  //Process right child first
+  print(root->right, size, space);
+  cout << endl;
+
+  //Print current node after space count
+  for(int i = size; i < space; i++)
+    cout << "\t";
+  cout << root->value << "\n";
+
+  //Process left child
+  print(root->left, size, space);
 }
