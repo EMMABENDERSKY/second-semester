@@ -14,17 +14,15 @@ struct Node
 
 //Function prototypes
 Node* addNum(Node* root, int num); 
-void addFile(Node* root);
+void addFile(Node* & root);
 Node* getSuccessor(Node* curr);
 Node* remove(Node* root, int num);
 bool search(Node* root, int num);
-int size(Node* root);
-void print(Node* root, int size, int space);
+void print(Node* root, int space);
 
 int main()
 {
-  Node* root;
-  
+  Node* root = NULL;
   
   while(true)
     {
@@ -39,14 +37,15 @@ int main()
 	  cout << "CONSOLE or FILE?" << endl;
 	  cin.get(source, 80);
 	  cin.get();
-
+  
 	  if(strcmp(source, "CONSOLE") == 0)
 	    {
 	      int num;
 	      cout << "Enter a number between 1 and 999:" << endl;
 	      cin >> num;
 	      cin.ignore();
-	      addNum(root, num);
+	      
+	      root = addNum(root, num);
 	    } 
 	  
 	  if(strcmp(source, "FILE") == 0)
@@ -60,7 +59,7 @@ int main()
 	  cin >> number;
 	  cin.ignore();
 
-	  remove(root, number);
+	  root = remove(root, number);
 	}
       
       else if(strcmp(command, "SEARCH") == 0)
@@ -70,14 +69,15 @@ int main()
 	  cin >> number;
 	  cin.ignore();
 
-	  if(search(root, number) == true)
+	  if(search(root, number))
 	    cout << "Found" << endl;
-	  cout << "Not found" << endl;
+	  else
+	    cout << "Not found" << endl;
 	}
       
       else if(strcmp(command, "PRINT") == 0)
 	{
-	  print(root, size(root), 0);
+	  print(root, 0);
 	}
       else if(strcmp(command, "QUIT") == 0)
 	{
@@ -89,33 +89,29 @@ int main()
 }
 
 Node* addNum(Node* root, int num)
-{
+{ 
   //If the tree is empty, add a new node
   if(root == NULL)
     {
       Node* newNode = new Node;
       newNode->value = num;
+      newNode->left = NULL;
+      newNode->right = NULL;
       return newNode;
     }
 
-  //If the value is already present in the tree, return
-  if(root->value == num)
-    return root;
-
   //Otherwise, recur down the tree
-  //If the value is greater than the current node's value, insert it in the right subtree
-  if(root->value < num)
-    root->right = addNum(root->right, num);
-
-  //If the value is smaller than the current node's value, insert it in the left subtree
-  else
-    root->left = addNum(root->left, num);
-
+  if(num < root->value)  
+    root->left = addNum(root->left, num); //If num is less than the current node value, go left
+  
+  else if(num > root->value)  
+    root->right = addNum(root->right, num); //If num is greater than the current node value, go right
+  
   //Return the (unchanged) root
   return root;
 }
 
-void addFile(Node* root)
+void addFile(Node* & root)
 {
   cout << "Enter filename:" << endl;
   char filename[80];
@@ -126,8 +122,10 @@ void addFile(Node* root)
     {
       int num;
       while(file >> num)
-	if(num >= 1 && num <= 999)
-	  addNum(root, num);
+	{
+	  if(num >= 1 && num <= 999)
+	    root = addNum(root, num);
+	}
       file.close();
     }
   else
@@ -184,52 +182,35 @@ Node* remove(Node* root, int num)
 
 bool search(Node* root, int num)
 {
-  //Base case: root is NULL or value is present in the root
-  if((root == NULL) || (root->value = num))
-    return true;
+  if(root == NULL)
+    return false; //Not found
 
-  //If value is greater than the root
+  if(root->value == num)
+    return true; //Found
+
   if(root->value < num)
-    search(root->right, num);
-
-  //If value is smaller than the root
-  if(root->value > num)
-    search(root->left, num);
-
-  return false;
+    return search(root->right, num); //Continue searching right
+  else
+    return search(root->left, num); //Continue searching left
 }
 
-int size(Node* root)
-{
-  if(root == NULL);
-  return 0;
-
-  //Find size of left and right subtree
-  int left = size(root->left);
-  int right = size(root->right);
-
-  //Return the size of curr subtree
-  return left + right + 1;
-}
-
-void print(Node* root, int size, int space)
+void print(Node* root, int space)
 {
   //Base case
   if(root == NULL)
     return;
 
   //Increase distance between levels
-  space += size;
+  space += 5;
 
-  //Process right child first
-  print(root->right, size, space);
-  cout << endl;
+  //Process left child first
+  print(root->right, space);
 
   //Print current node after space count
-  for(int i = size; i < space; i++)
-    cout << "\t";
+  for(int i = 5; i < space; i++)
+    cout << " ";
   cout << root->value << "\n";
 
   //Process left child
-  print(root->left, size, space);
+  print(root->left, space);
 }
