@@ -4,6 +4,13 @@
 
 using namespace std;
 
+Node::Node(int value)
+{
+  data = value;
+  color = RED;
+  left = right = parent = NULL;
+}
+
 RedBlackTree::RedBlackTree()
 {
   NIL = new Node(0);
