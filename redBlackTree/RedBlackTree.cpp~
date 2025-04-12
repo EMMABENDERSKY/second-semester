@@ -1,0 +1,12 @@
+#include "ReadBlackTree.h"
+#include <iostream>
+
+ReadBlackTree::ReadBlackTree()
+{
+  NIL = new node();
+  NIL->color = BLACK;
+  NIL->left = NIL->right = NIL->parent = NULL;
+  NIL->data = 0;
+  root = NIL;
+}
+
