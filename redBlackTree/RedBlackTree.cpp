@@ -176,44 +176,27 @@ void RedBlackTree::readFromFile(const char* filename)
 
 void RedBlackTree::printHelper(Node* node, int space)
 {
-  if(root == NIL)
+  if (node == NIL)
     return;
-
-  for(int i = 0; i < space; i++)
-    cout << "  ";
-
-  cout << node->data;
   
-  if(node->color == RED)
-    cout << "(R)" << endl;
+  space += 5;
+  
+  if (node->right != NIL) 
+    printHelper(node->right, space); 
+  
+  for (int i = 5; i < space; i++)
+    cout << " ";  
+  
+  cout << node->data;  
+
+  if (node->color == RED)
+    cout << "(R)" << endl;  
 
   else
-    cout << "(B)" << endl;
+    cout << "(B)" << endl; 
   
-  if(node->left != NIL || node->right != NIL)
-    {
-      for(int i = 0; i < space; i++)
-	cout << "  ";
-      cout << "/ \\" << endl;
-
-      if(node->left)
-	printHelper(node->right, space + 1);
-      else
-	{
-	  for(int i = 0; i<= space; i++)
-	    cout << "  ";
-	  cout << "NULL" << endl;
-	}
-
-      if(node->right)
-	printHelper(node->right, space + 1);
-      else
-	{
-	  for(int i = 0; i <= space; i++)
-	    cout << "  ";
-	  cout << "NULL" << endl;
-	}
-    }
+  if (node->left != NIL)
+    printHelper(node->left, space);  
 }
 
 void RedBlackTree::print()
