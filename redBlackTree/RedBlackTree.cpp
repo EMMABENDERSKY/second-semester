@@ -1,11 +1,12 @@
 #include "RedBlackTree.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
 RedBlackTree::RedBlackTree()
 {
-  NIL = new Node();
+  NIL = new Node(0);
   NIL->color = BLACK;
   NIL->left = NIL->right = NIL->parent = NULL;
   NIL->data = 0;
@@ -144,7 +145,76 @@ void RedBlackTree::insert(int value)
   if(value < 1 || value > 999)
     return;
 
-  Node* node = new Node();
-  node->data = value;
+  Node* node = new Node(value);
   insertNode(node);
 }
+
+void RedBlackTree::readFromFile(const char* filename)
+{
+  ifstream file(filename);
+  if (!file)
+    {
+      cout << "File not found!" << endl;
+      return;
+    }
+
+  int num;
+  while (file >> num)
+    {
+      if(num >= 1 && num <= 999)
+	insert(num);
+    }
+  file.close();
+}
+
+void RedBlackTree::printHelper(Node* node, int space)
+{
+  if(root == NIL)
+    return;
+
+  for(int i = 0; i < space; i++)
+    cout << "  ";
+
+  cout << node->data;
+  
+  if(node->color == RED)
+    cout << "(R)" << endl;
+
+  else
+    cout << "(B)" << endl;
+  
+  if(node->left != NIL || node->right != NIL)
+    {
+      for(int i = 0; i < space; i++)
+	cout << "  ";
+      cout << "/ \\" << endl;
+
+      if(node->left)
+	printHelper(node->right, space + 1);
+      else
+	{
+	  for(int i = 0; i<= space; i++)
+	    cout << "  ";
+	  cout << "NULL" << endl;
+	}
+
+      if(node->right)
+	printHelper(node->right, space + 1);
+      else
+	{
+	  for(int i = 0; i <= space; i++)
+	    cout << "  ";
+	  cout << "NULL" << endl;
+	}
+    }
+}
+
+void RedBlackTree::print()
+{
+  if(root == NIL)
+    cout << "Tree is empty." << endl;
+
+  else
+    printHelper(root, 0);
+}
+

@@ -27,6 +27,7 @@ private:
   void rotateRight(Node* x);
   void fixInsert(Node* z);
   void insertNode(Node* z);
+  void printHelper(Node* node, int space);
   
 public:
   RedBlackTree();
