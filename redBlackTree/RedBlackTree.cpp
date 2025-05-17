@@ -224,7 +224,8 @@ void RedBlackTree::print()
     printHelper(root, 0);
 }
 
-
+//Recursively searches for a node with the given value
+//Returns the node if found, otherwise return NIL
 Node* RedBlackTree::searchNode(Node* node, int val)
 {
   if (node == NIL || val == node->data)
@@ -236,12 +237,15 @@ Node* RedBlackTree::searchNode(Node* node, int val)
     return searchNode(node->right, val);
 }
 
+//Public function to search for a value in the tree
+//Return true if the value exists, false otherwise
 bool RedBlackTree::search(int value)
 {
   Node* result = searchNode(root, value);
   return result != NIL;
 }
 
+//Replaces one subtree(u) with another subtree (v)
 void RedBlackTree::transplant(Node* u, Node* v)
 {
   if (u->parent == nullptr)
@@ -254,6 +258,7 @@ void RedBlackTree::transplant(Node* u, Node* v)
   v->parent = u->parent;
 }
 
+//Finds the node with the minimum value in a subtree
 Node* RedBlackTree::minimum(Node* node)
 {
   while (node->left != NIL)
@@ -261,6 +266,7 @@ Node* RedBlackTree::minimum(Node* node)
   return node;
 }
 
+//Fixes Red-Black Tree properties after deletion
 void RedBlackTree::fixDelete(Node* x)
 {
   while (x != root && x->color == BLACK)
@@ -299,6 +305,7 @@ void RedBlackTree::fixDelete(Node* x)
 	}
       else
 	{
+	  //Mirror of the above code for right-side deletion
 	  Node* w = x->parent->left;
 	  if (w->color == RED) {
 	    w->color = BLACK;
@@ -332,6 +339,7 @@ void RedBlackTree::fixDelete(Node* x)
   x->color = BLACK;
 }
 
+//Deletes a node and fixes the tree afterward
 void RedBlackTree::deleteNode(Node* z)
 {
   Node* y = z;
@@ -350,7 +358,7 @@ void RedBlackTree::deleteNode(Node* z)
     }
   else
     {
-      y = minimum(z->right);
+      y = minimum(z->right); //Find successor
       yOriginalColor = y->color;
       x = y->right;
       if (y->parent == z)
@@ -374,11 +382,12 @@ void RedBlackTree::deleteNode(Node* z)
   delete z;
 }
 
+//Removes a node with the given value from the tree
 void RedBlackTree::remove(int value)
 {
   Node* z = searchNode(root, value);
   if (z == NIL)
-    return;
+    return; //Value not found
   deleteNode(z);
 }
 
