@@ -34,9 +34,9 @@ int main()
 	  tree.readFromFile(filename); //Read numbers from file
 	}
       
-      else if(strcmp(command, "PRINT") == 0) //Print the tree
+      else if(strcmp(command, "PRINT") == 0)
 	{
-	  tree.print();
+	  tree.print(); //Print the tree
 	}
       
       else if(strcmp(command, "QUIT") == 0)
@@ -52,9 +52,9 @@ int main()
 	  cin >> num;
 	  cin.ignore();
 	  if (tree.search(num))
-	    cout << num << " found in the tree." << endl;
+	    cout << num << " found in the tree." << endl; //Number found
 	  else
-	    cout << num << " not found." << endl;
+	    cout << num << " not found." << endl; //Number not found
 	}
       
       else if (strcmp(command, "REMOVE") == 0)
@@ -63,7 +63,7 @@ int main()
 	  cout << "Enter number to remove:" << endl;
 	  cin >> num;
 	  cin.ignore();
-	  tree.remove(num);
+	  tree.remove(num); //Remove number from tree
 	}
     }
   
