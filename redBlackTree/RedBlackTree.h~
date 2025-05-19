@@ -1,0 +1,13 @@
+#ifndef REDBLACKTREE_H
+#define REDBLACKTREE_H
+#include <iostream>
+
+using namespace std;
+
+enum Color { RED, BLACK };
+
+struct Node
+{
+  int data;
+  bool color;
+  
