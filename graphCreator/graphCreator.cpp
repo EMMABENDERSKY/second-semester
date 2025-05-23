@@ -27,10 +27,10 @@ int main()
 
       if(strcmp(command, "AV") == 0)
 	{
-	  char lable[1];
+	  char lable[2];
 
 	  cout << "Enter lable: " << endl;
-	  cin.get(lable, 1);
+	  cin.get(lable, 2);
 	  cin.get();
 	  
 	  addVertex(lable);
@@ -38,16 +38,16 @@ int main()
 
       else if(strcmp(command, "AE") == 0)
 	{
-	  char from[1];
-	  char to[1];
+	  char from[2];
+	  char to[2];
 	  int weight;
 
 	  cout << "Enter first vertex lable (from): " << endl;
-	  cin.get(from, 1);
+	  cin.get(from, 2);
 	  cin.get();
 
 	  cout << "Enter second vertex lable (to): " << endl;
-	  cin.get(to, 1);
+	  cin.get(to, 2);
 	  cin.get();
 
 	  cout << "Enter weight: " << endl;
@@ -59,10 +59,10 @@ int main()
       
       else if(strcmp(command, "RV") == 0)
 	{
-	  char lable[1];
+	  char lable[2];
 
 	  cout << "Enter lable: " << endl;
-	  cin.get(lable, 1);
+	  cin.get(lable, 2);
 	  cin.get();
 
 	  removeVertex(lable);
@@ -70,15 +70,15 @@ int main()
       
       else if(strcmp(command, "RE") == 0)
 	{
-	  char from[1];
-	  char to[1];
+	  char from[2];
+	  char to[2];
 
 	  cout << "Enter first vertex lable (from): " << endl;
-	  cin.get(from, 1);
+	  cin.get(from, 2);
 	  cin.get();
 
 	  cout << "Enter second vertex lable (to): " << endl;
-	  cin.get(to, 1);
+	  cin.get(to, 2);
 	  cin.get();
 
 	  removeEdge(from, to);
