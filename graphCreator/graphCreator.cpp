@@ -13,7 +13,7 @@ void addVertex(char* lable);
 void addEdge(char* from, char* to, int weight);
 void removeVertex(char* lable);
 void removeEdge(char* from, char* to);
-//int findShortestPath();
+int findShortestPath();
 void printAdjacencyTable();
 
 int main()
@@ -141,18 +141,34 @@ void removeVertex(char* lable)
   if(index == -1)
     return;
 
+  for(int i = index; i < vertexCount - 1; i++)
+    vertices[i] = vertices[i + 1];
+
+  for(int i = index; i < vertexCount - 1; i++)
+    for(int j = index; j < vertexCount; j++)
+      adj[i][j] = adj[i + 1][j];
+
+  for(int i = index; i < vertexCount; i++)
+    for(int j = index; j < vertexCount - 1; j++)
+      adj[i][j] = adj[i][j + 1];
+
+  vertexCount--;
   
 }
 
 void removeEdge(char* from, char* to)
 {
+  int i = getIndex(from);
+  int j = getIndex(to);
 
+  if(i != -1 && j != -1)
+    adj[i][j] = 0;
 }
 
-/*int findShortestPath()
+int findShortestPath()
 {
-
-}*/
+  
+}
 
 void printAdjacencyTable()
 {
