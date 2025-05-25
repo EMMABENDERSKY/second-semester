@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <climits>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void addVertex(char* lable);
 void addEdge(char* from, char* to, int weight);
 void removeVertex(char* lable);
 void removeEdge(char* from, char* to);
-int findShortestPath();
+int findShortestPath(char* from, char* to);
 void printAdjacencyTable();
 
 int main()
@@ -86,7 +87,17 @@ int main()
       
       else if(strcmp(command, "FSP") == 0)
 	{
-	  
+	  char from[2];
+	  char to[2];
+
+	  cout << "Enter start vertex lable: " << endl;
+	  cin.get(from, 2);
+	  cin.ignore();
+	  cout << "Enter end vertex lable: " << endl;
+	  cin.get(to, 2);
+	  cin.ignore();
+
+	  findShortestPath(from, to);
 	}
       
       else if(strcmp(command, "PAT") == 0)
@@ -107,7 +118,7 @@ int getIndex(char* lable)
 {
   for(int i = 0; i < vertexCount; i++)
     {
-      if(vertices[i] == lable)
+      if(strcmp(vertices[i], lable) == 0)
 	return i;
     }
   return -1;
@@ -120,7 +131,9 @@ void addVertex(char* lable)
       cout << "Max vertices reached" << endl;
       return;
     }
-  vertices[vertexCount++] = lable;
+  vertices[vertexCount] = new char[strlen(lable) + 1];
+  strcpy(vertices[vertexCount], lable);
+  vertexCount++;
 }
 
 void addEdge(char* from, char* to, int weight)
@@ -165,7 +178,7 @@ void removeEdge(char* from, char* to)
     adj[i][j] = 0;
 }
 
-int findShortestPath()
+int findShortestPath(char* from, char* to)
 {
   
 }
@@ -175,13 +188,14 @@ void printAdjacencyTable()
   cout << "  ";
 
   for(int i = 0; i < vertexCount; i++)
-    cout << endl << endl;
+    cout << vertices[i] << " ";
+  cout << endl;
 
   for(int i = 0; i < vertexCount; i++)
     {
       cout << vertices[i] << " ";
       for(int j = 0; j < vertexCount; j++)
 	cout << adj[i][j] << " ";
+      cout << endl;
     }
-  cout << endl;
 }
