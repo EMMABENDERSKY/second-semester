@@ -180,7 +180,80 @@ void removeEdge(char* from, char* to)
 
 int findShortestPath(char* from, char* to)
 {
-  
+  int start = getIndex(from);
+  int end = getIndex(to);
+  if(start == -1 || end == -1)
+    {
+      cout << "Start or end vertex not found." << endl;
+      return -1;
+    }
+
+  int dist[MAX];
+  bool visited[MAX];
+  int previous[MAX];
+
+  for( int i = 0; i < vertexCount; i++)
+    {
+      dist[i] = INT_MAX;
+      visited[i] = false;
+      previous[i] = -1;
+    }
+
+  dist[start] = 0;
+
+  for(int count = 0; count < vertexCount - 1; count ++)
+    {
+      int u = -1;
+      int minDist = INT_MAX;
+
+      //Find unvisited vertex with smalles dist
+      for(int i = 0; i < vertexCount; i++)
+	{
+	  if(!visited[i] && dist[i] < minDist)
+	    {
+	      minDist = dist[i];
+	      u = i;
+	    }
+	}
+
+      if(u == -1) //No more reachable vertices
+	break;
+      visited[u] = true;
+
+      //update beighbors
+      for(int v = 0; v < vertexCount; v++)
+	{
+	  if(adj[u][v] != 0 && !visited[v] && dist[u] != INT_MAX && dist[u] + adj[u][v] < dist[v])
+	    {
+	      dist[v] = dist[u] + adj[u][v];
+	      previous[v] = u;
+	    }
+	}
+    }
+
+  if(dist[end] == INT_MAX)
+    {
+      cout <<"No path exists from " << from << " to " << to << endl;
+      return -1;
+    }
+
+  //Reconstruct path by going backwards from wnd to start
+  int path[MAX];
+  int count = 0;
+  for(int at = end; at != -1; at = previous[at])
+    path[count++] = at;
+
+  cout << "Shortest path distance: " << dist[end] << endl;
+  cout << "Path: ";
+  for(int i = count - 1; i >= 0; i--)
+    {
+      cout <<vertices[path[i]];
+      if(i != 0)
+	cout << " -> ";
+    }
+  cout << endl;
+
+  return 0;
 }
 
 void printAdjacencyTable()
